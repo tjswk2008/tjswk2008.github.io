@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Andy Liao Github 上的个人博客">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Andy Liao" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        使用vue-ssr做门户网站的静态生成｜Andy Liao&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://tjswk2008.github.io/2019/12/17/使用vue-ssr做门户网站的静态生成/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/blog-style.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Andy Liao
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>使用vue-ssr做门户网站的静态生成</h1>
+                    
+                    <span class="meta">
+                         作者 Andy Liao
+                        <span>
+                          日期 2019-12-17
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            使用vue-ssr做门户网站的静态生成
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="主要框架"><a href="#主要框架" class="headerlink" title="主要框架"></a>主要框架</h3><p>vue-easy-renderer + express</p>
+<h4 id="关于vue-easy-renderer部分"><a href="#关于vue-easy-renderer部分" class="headerlink" title="关于vue-easy-renderer部分"></a>关于vue-easy-renderer部分</h4><p>业务很可能需要定制化开发，所以有修改源码的可能性存在，主要涉及lib/renderer.js</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 修改此方法定制你的页面渲染</span></span><br><span class="line"><span class="keyword">static</span> headMerge(head, baseHead) &#123;</span><br><span class="line">    <span class="keyword">const</span> newHead = &#123;&#125;;</span><br><span class="line">    <span class="keyword">const</span> keys = [<span class="string">'title'</span>, <span class="string">'titleTemplate'</span>, <span class="string">'htmlAttrs'</span>, <span class="string">'bodyAttrs'</span>, <span class="string">'base'</span>, <span class="string">'meta'</span>, <span class="string">'link'</span>, <span class="string">'style'</span>, <span class="string">'script'</span>, <span class="string">'noscript'</span>, <span class="string">'__dangerouslyDisableSanitizers'</span>];</span><br><span class="line">    keys.forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (head[key] &amp;&amp; baseHead[key]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (baseHead[key] <span class="keyword">instanceof</span> <span class="built_in">Array</span>) &#123;</span><br><span class="line">          newHead[key] = [];</span><br><span class="line">          baseHead[key].forEach(<span class="function"><span class="params">item</span> =&gt;</span> newHead[key].push(item));</span><br><span class="line">          head[key].forEach(<span class="function"><span class="params">item</span> =&gt;</span> newHead[key].push(item));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          newHead[key] = head[key];</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (head[key] || baseHead[key]) &#123;</span><br><span class="line">        newHead[key] = head[key] || baseHead[key];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> newHead;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="nodejs提供静态生成API的核心渲染方法"><a href="#nodejs提供静态生成API的核心渲染方法" class="headerlink" title="nodejs提供静态生成API的核心渲染方法"></a>nodejs提供静态生成API的核心渲染方法</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">renderCoreAsync</span>(<span class="params">url, data, projectBasepath, templatePath, isPure</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> renderer = vueFileRenderer(projectBasepath, &#123;&#125;);</span><br><span class="line">    renderer.vueRender(templatePath, data, &#123;</span><br><span class="line">      pure: isPure</span><br><span class="line">    &#125;).then(<span class="function"><span class="params">html</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> destPath = path.join(projectBasepath, url);</span><br><span class="line">      checkDirExist(url, projectBasepath);</span><br><span class="line">      fs.writeFileSync(destPath, html);</span><br><span class="line">      resolve(destPath);</span><br><span class="line">    &#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">      reject(err);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>模板配置文件routes.config.js：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// 新闻列表</span></span><br><span class="line">  <span class="string">"news-list"</span>: [&#123;</span><br><span class="line">      <span class="string">"template"</span>: <span class="string">"./pages/list/_page.vue"</span>,</span><br><span class="line">      <span class="string">"needBuild"</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="string">"type"</span>: <span class="string">"list"</span>, <span class="comment">// 类型： 列表</span></span><br><span class="line">      <span class="string">"pageSize"</span>: <span class="number">15</span>,</span><br><span class="line">     <span class="comment">// pure 是否为整页面，即是否需要页头页脚，决定是否参与构建过程，完整页面用false，片段用true</span></span><br><span class="line">      <span class="string">"pure"</span>: <span class="literal">false</span></span><br><span class="line">  &#125;],</span><br><span class="line">  <span class="comment">// 新闻内页</span></span><br><span class="line">  <span class="string">"news-detail"</span>: [&#123;</span><br><span class="line">      <span class="string">"template"</span>: <span class="string">"./pages/detail/_id.vue"</span>,</span><br><span class="line">      <span class="string">"type"</span>: <span class="string">"detail"</span>, <span class="comment">// 类型： 内页</span></span><br><span class="line">      <span class="string">"pure"</span>: <span class="literal">false</span></span><br><span class="line">  &#125;],</span><br><span class="line">  <span class="comment">// 游戏资料</span></span><br><span class="line">  <span class="string">"game"</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">          <span class="string">"template"</span>: <span class="string">"./pages/game/list.vue"</span>,</span><br><span class="line">          <span class="string">"type"</span>: <span class="string">"list"</span>,</span><br><span class="line">          <span class="string">"pure"</span>: <span class="literal">false</span>,</span><br><span class="line">          <span class="string">"needBuild"</span>: <span class="literal">true</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">          <span class="string">"template"</span>: <span class="string">"./pages/game/info.vue"</span>,</span><br><span class="line">          <span class="string">"type"</span>: <span class="string">"info"</span>,</span><br><span class="line">          <span class="string">"pure"</span>: <span class="literal">false</span>,</span><br><span class="line">          <span class="string">"needBuild"</span>: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="comment">// 首页，超首等片段页配置</span></span><br><span class="line">  <span class="string">"ssi"</span>: [&#123;</span><br><span class="line">      <span class="string">"needBuild"</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="string">"flag"</span>: <span class="string">"index_logo"</span>,</span><br><span class="line">      <span class="string">"pure"</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="string">"template"</span>: <span class="string">"./pages/ssi/index_logo.vue"</span>,</span><br><span class="line">      <span class="string">"dist"</span>: <span class="string">"ssi/index_logo.html"</span></span><br><span class="line">  &#125;],</span><br><span class="line">  <span class="string">"picture"</span>: [&#123;</span><br><span class="line">      <span class="string">"type"</span>: <span class="string">"inner"</span>,</span><br><span class="line">      <span class="string">"template"</span>: <span class="string">"./pages/pic/inner.vue"</span>,</span><br><span class="line">      <span class="string">"pageSize"</span>: <span class="number">15</span>, <span class="comment">//已废弃,从配置读取</span></span><br><span class="line">      <span class="string">"pure"</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="string">"needBuild"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;],</span><br><span class="line">  <span class="string">"video"</span>: [&#123;</span><br><span class="line">      <span class="string">"type"</span>: <span class="string">"inner"</span>,</span><br><span class="line">      <span class="string">"template"</span>: <span class="string">"./pages/video/inner.vue"</span>,</span><br><span class="line">      <span class="string">"pageSize"</span>: <span class="number">15</span>, <span class="comment">//已废弃,从配置读取</span></span><br><span class="line">      <span class="string">"pure"</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="string">"needBuild"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>模板开发：</p>
+<p>服务端返回数据将被extend到data函数的返回结果里面</p>
+<p>如需注入其他ssi, 可先定义好data</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">data() &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">          comments: &#123;</span><br><span class="line">            left: <span class="string">'&lt;!--#include virtual="/ssi/index_fast_track.html"--&gt;'</span>,</span><br><span class="line">            nav: <span class="string">'&lt;!--#include virtual="/ssi/header.html"--&gt;'</span>,</span><br><span class="line">            logo: <span class="string">'&lt;!--#include virtual="/ssi/index_logo.html"--&gt;'</span>,</span><br><span class="line">            right: <span class="string">'&lt;!--#include virtual="/ssi/right_fast_track.html"--&gt;'</span>,</span><br><span class="line">            pic: <span class="string">'&lt;!--#include virtual="/ssi/inner_jt_jcjt.html"--&gt;'</span>,</span><br><span class="line">            rTrack: <span class="string">'&lt;!--#include virtual="/ssi/right_float_track.html"--&gt;'</span></span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在template中使用：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;div v-html=<span class="string">"comments.rTrack"</span>&gt; &#123;&#123; comments.rTrack &#125;&#125; &lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>页头页脚配置：<br>使用__dangerouslyDisableSanitizers防止转义<br>JS片段可包裹在innerHTML内</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">head () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      title: (<span class="keyword">this</span>.type === <span class="string">'index'</span> ? <span class="string">''</span> : <span class="keyword">this</span>.typeName + <span class="string">'_'</span>) + <span class="string">'新闻中心_&lt;!--#include virtual="/ssi/web-title.html" --&gt;'</span>,</span><br><span class="line">      meta: [</span><br><span class="line">          &#123; <span class="string">'http-equiv'</span>: <span class="string">"Content-Type"</span>, <span class="attr">content</span>: <span class="string">"text/html; charset=utf-8"</span> &#125;,</span><br><span class="line">          &#123; <span class="attr">name</span>: <span class="string">'keywords'</span>, <span class="attr">content</span>: <span class="string">"&lt;!--#include virtual='/ssi/seo-keywords.html'--&gt;"</span> &#125;,</span><br><span class="line">          &#123; <span class="attr">name</span>: <span class="string">'description'</span>, <span class="attr">content</span>: <span class="string">"&lt;!--#include virtual='/ssi/seo-description.html'--&gt;"</span> &#125;</span><br><span class="line">      ],</span><br><span class="line">      link: [</span><br><span class="line">          &#123;<span class="attr">rel</span>:<span class="string">"stylesheet"</span>, <span class="attr">type</span>:<span class="string">"text/css"</span>, <span class="attr">href</span>:<span class="string">"/css/v13/index.css"</span>&#125;</span><br><span class="line">      ],</span><br><span class="line">      __dangerouslyDisableSanitizers: [<span class="string">'title'</span>, <span class="string">'meta'</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  tail () &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">          script: [</span><br><span class="line">              &#123;<span class="attr">type</span>:<span class="string">"text/javascript"</span>, <span class="attr">src</span>:<span class="string">"/scripts/v8/jquery-1.7.2.min.js"</span>&#125;,</span><br><span class="line">              &#123;<span class="attr">type</span>:<span class="string">"text/javascript"</span>, <span class="attr">src</span>:<span class="string">"/scripts/v8/jquery.nicescroll.js"</span>&#125;,</span><br><span class="line">              &#123;<span class="attr">type</span>:<span class="string">"text/javascript"</span>, <span class="attr">src</span>:<span class="string">"/scripts/v8/NFLightBox.js"</span>&#125;,</span><br><span class="line">              &#123;<span class="attr">type</span>:<span class="string">"text/javascript"</span>, <span class="attr">src</span>:<span class="string">"/scripts/v9/common.js"</span>&#125;,</span><br><span class="line">              &#123;<span class="attr">type</span>:<span class="string">"text/javascript"</span>, <span class="attr">innerHTML</span>:<span class="string">`$(function() &#123;</span></span><br><span class="line"><span class="string">                  //分辨率</span></span><br><span class="line"><span class="string">                  $(window).resize(function() &#123;</span></span><br><span class="line"><span class="string">                      mainSize();</span></span><br><span class="line"><span class="string">                  &#125;);</span></span><br><span class="line"><span class="string">                  mainSize();</span></span><br><span class="line"><span class="string">                  sizeH();</span></span><br><span class="line"><span class="string">                  //点击图片放大</span></span><br><span class="line"><span class="string">                  $('#mydiv a').lightBox();</span></span><br><span class="line"><span class="string">              &#125;)`</span>&#125;,</span><br><span class="line">              &#123;<span class="attr">type</span>:<span class="string">"text/javascript"</span>, <span class="attr">src</span>:<span class="string">"xxx"</span>, <span class="attr">id</span>:<span class="string">"globalscript"</span>, <span class="attr">site</span>:<span class="string">"xx"</span>&#125;,</span><br><span class="line">              &#123;<span class="attr">type</span>:<span class="string">"text/javascript"</span>, <span class="attr">src</span>:<span class="string">"http://xx.ztgame.com/ssi/copyright.js"</span>&#125;</span><br><span class="line">          ]</span><br><span class="line">      &#125;;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2019/12/17/使用Electron做一个windows的应用市场/" data-toggle="tooltip" data-placement="top"
+                           title="使用Electron做一个windows的应用市场">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#主要框架"><span class="toc-text">主要框架</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#关于vue-easy-renderer部分"><span class="toc-text">关于vue-easy-renderer部分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nodejs提供静态生成API的核心渲染方法"><span class="toc-text">nodejs提供静态生成API的核心渲染方法</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/tjswk2008">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Andy Liao 2019
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/" target="_blank" rel="noopener">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/blog.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://tjswk2008.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="img/avatar.jpg">
+</body>
+
+</html>

@@ -1,106 +1,508 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
 <head>
-  <meta charset="utf-8">
-  
-  <title>Archives: 2019 › Hexo</title>
-  <meta name="author" content="John Doe">
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Andy Liao Github 上的个人博客">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Andy Liao" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Andy Liao&#39;s blog
+        
+    </title>
 
-  
-  <meta property="og:site_name" content="Hexo"/>
+    <link rel="canonical" href="http://tjswk2008.github.io/archives/2019/">
 
-  
-    <meta property="og:image" content=""/>
-  
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
 
-  <link href="/favicon.png" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/blog-style.css">
+
+
+    <!-- Pygments Github CSS -->
+    
+<link rel="stylesheet" href="/css/syntax.css">
 
 <meta name="generator" content="Hexo 4.1.1"></head>
 
+<style>
 
-<body>
-  <header id="header"><div class="meta inner">
-  <h1><a href="/">Hexo</a></h1>
-  <h2><a href="/"></a></h2>
-  <nav id="main-nav">
-    <ul>
-      
-      <li><a href="/about">About</a></li>
-      
-      <li><a href="/archives">Archives</a></li>
-      
-      <li><a href="/atom.xml">RSS</a></li>
-      
-    </ul>
-    <div class="clearfix"></div>
-  </nav>
-</div>
-<div class="clearfix"></div>
-</header>
-  <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title">2019</h2>
-
-
-  <div class="archive">
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            
-              <h2 class="archive-post"><span datetime="2019-12-17T03:55:28.176Z">2019-12-17</span><a href="/2019/12/17/hello-world/">Hello World</a></h1>
-            
-          </header>
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Andy Liao
+                </span>
+                's Blog
+            </a>
         </div>
-      </article>
-    
-  </div>
 
-</div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Search">
-    <input type="hidden" name="q" value="site:yoursite.com">
-  </form>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+
+<!-- Page Header -->
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 visible-xs-block visible-sm-block">
+    <div class="row">
+        <header class="intro-header">
+            <div class="container">
+                <div class="site-heading text-center">
+                    <div class="about-me">
+                        <!--移动端头部显示-->
+                        <img src="img/avatar.jpg"/>
+                        <h5><a href="/about/">Andy Liao</a></h5>
+                        <p>游走在代码世界的浪荡少年</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+</div>
+<!-- Main Content -->
+<div class="container custom-haojen-container">
+    <!-- Post Container -->
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
+            <!-- Main Content -->
+
+
+
+<div class="post-preview "
+     style="background-image: url('')">
+    <a href="/2019/12/17/Selenium-UI自动化测试是如何工作的/">
+        <h2 class="post-title">
+            Selenium UI自动化测试是如何工作的
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2019-12-17
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                Selenium与webdriver的通讯w3c webdriver wire protocol - 基于http协议
+
+
+webdriver与浏览器的通讯以chrome为例，使用的是Chrome 的 DevTools Protocol，基于websocket
+
+
+            </p>
+        </div>
+    </a>
+
 </div>
 
-  
-<div class="widget tag">
-  <h3 class="title">Recent Posts</h3>
-  <ul class="entry">
-    
-      <li>
-        <a href="/2019/12/17/hello-world/">Hello World</a>
-      </li>
-    
-  </ul>
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('')">
+    <a href="/2019/12/17/如何做一个切牌洗牌的动画/">
+        <h2 class="post-title">
+            如何做一个切牌洗牌的动画
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2019-12-17
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                Html
+                &lt;div class="gifts_container"&gt;    &lt;a class="gift gift_decorator gift_decorator_1"&gt;        &lt;img src="./images/1.pn..
+            </p>
+        </div>
+    </a>
+
 </div>
 
+<hr>
 
-  
 
-  
-</aside>
-    <div class="clearfix"></div>
-  </div>
-  <footer id="footer" class="inner"><div class="alignleft">
-  
-  &copy; 2019 John Doe
-  
+
+<div class="post-preview "
+     style="background-image: url('')">
+    <a href="/2019/12/17/卷轴展开动画/">
+        <h2 class="post-title">
+            卷轴展开动画
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2019-12-17
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                设计思路切图分成左右卷轴棍子，中间部分
+        &lt;div class="scroll_container"&gt;    &lt;div class="scroll_left" ref="left"&gt;&lt;/div&gt;    &lt;div class="scroll_..
+            </p>
+        </div>
+    </a>
+
 </div>
-<div class="clearfix"></div></footer>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<hr>
 
 
 
+<div class="post-preview "
+     style="background-image: url('')">
+    <a href="/2019/12/17/使用gulp打包requirejs项目/">
+        <h2 class="post-title">
+            使用gulp打包requirejs项目
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2019-12-17
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                主要插件grunt-contrib-requirejs
+module.exports = &#123;    baseUrl: 'js/',    paths: &#123;        "jquery": 'jquery-1.9.1.min'    &#125;,    dir: 'dist..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('')">
+    <a href="/2019/12/17/使用graphql-apollo客户端的一些知识点/">
+        <h2 class="post-title">
+            使用graphql apollo客户端的一些知识点
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2019-12-17
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                如何使用上传功能import &#123; ApolloClient &#125; from 'apollo-client'const &#123; createUploadLink &#125; = require('apollo-upload-client')const apiLink = ..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('/img/electron.jpg')">
+    <a href="/2019/12/17/使用Electron做一个windows的应用市场/">
+        <h2 class="post-title">
+            使用Electron做一个windows的应用市场
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2019-12-17
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                核心思想
+各应用分别打包成asar文件，在主应用中加载各asar应用包
+const path = Path.join(__dirname, '..', `$&#123;appId&#125;.asar`);const pagePath = url.format(&#123;  protocol:..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('')">
+    <a href="/2019/12/17/使用vue-ssr做门户网站的静态生成/">
+        <h2 class="post-title">
+            使用vue-ssr做门户网站的静态生成
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2019-12-17
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                主要框架vue-easy-renderer + express
+关于vue-easy-renderer部分业务很可能需要定制化开发，所以有修改源码的可能性存在，主要涉及lib/renderer.js
+// 修改此方法定制你的页面渲染static headMerge(head, baseHead)..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+
+<!-- 翻页 pager -->
+
+<ul class="pager">
+    
+    
+</ul>
+
+
+        </div>
+        <!-- Sidebar Container -->
+        <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+
+            <!-- About Me -->
+            <section class="visible-md visible-lg" style="padding: 0 18px">
+                <div class="short-about">
+                    <!--侧边栏头像-->
+                    
+                    <img src="img/avatar.jpg"/>
+                    
+                    <h5><a href="/about/">Andy Liao</a></h5>
+                    
+                    <p>游走在代码世界的浪荡少年</p>
+                    
+                    <hr>
+                    <!-- SNS Link 社交 -->
+                    <ul class="list-inline">
+                        
+                        
+                        
+
+                        
+
+                        
+
+                        
+                        <li>
+                            <a target="_blank" href="https://github.com/tjswk2008">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                        </span>
+                            </a>
+                        </li>
+                        
+
+                        
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Featured Tags  标签 -->
+            
+
+            
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/tjswk2008">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Andy Liao 2019
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/" target="_blank" rel="noopener">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/blog.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://tjswk2008.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="img/avatar.jpg">
 </body>
-</html>
 
+</html>
