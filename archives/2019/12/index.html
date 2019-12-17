@@ -150,6 +150,31 @@
 
 
 <div class="post-preview "
+     style="background-image: url('/img/electron.jpg')">
+    <a href="/2019/12/17/使用Electron做一个windows的应用市场/">
+        <h2 class="post-title">
+            使用Electron做一个windows的应用市场
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2019-12-17
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                核心思想
+各应用分别打包成asar文件，在主应用中加载各asar应用包
+const path = Path.join(__dirname, '..', `$&#123;appId&#125;.asar`);const pagePath = url.format(&#123;  protocol:..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
      style="background-image: url('')">
     <a href="/2019/12/17/Selenium-UI自动化测试是如何工作的/">
         <h2 class="post-title">
@@ -262,31 +287,6 @@ module.exports = &#123;    baseUrl: 'js/',    paths: &#123;        "jquery": 'jq
         <div class="post-content-preview">
             <p>
                 如何使用上传功能import &#123; ApolloClient &#125; from 'apollo-client'const &#123; createUploadLink &#125; = require('apollo-upload-client')const apiLink = ..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('/img/electron.jpg')">
-    <a href="/2019/12/17/使用Electron做一个windows的应用市场/">
-        <h2 class="post-title">
-            使用Electron做一个windows的应用市场
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2019-12-17
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                核心思想
-各应用分别打包成asar文件，在主应用中加载各asar应用包
-const path = Path.join(__dirname, '..', `$&#123;appId&#125;.asar`);const pagePath = url.format(&#123;  protocol:..
             </p>
         </div>
     </a>
