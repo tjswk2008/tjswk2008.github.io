@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        使用Electron做一个windows的应用市场｜Andy Liao&#39;s blog
+        卷轴展开动画｜Andy Liao&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://tjswk2008.github.io/2019/12/17/使用Electron做一个windows的应用市场/">
+    <link rel="canonical" href="http://tjswk2008.github.io/2019/12/18/卷轴展开动画/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -126,13 +126,13 @@
 
 
 <img class="wechat-title-img"
-     src="null/img/electron.jpg">
+     src="">
 
 
 <style>
     
     header.intro-header {
-        background-image: url('/img/electron.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
+        background-image: url('')
     }
 
     
@@ -143,12 +143,12 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>使用Electron做一个windows的应用市场</h1>
+                    <h1>卷轴展开动画</h1>
                     
                     <span class="meta">
                          作者 Andy Liao
                         <span>
-                          日期 2019-12-17
+                          日期 2019-12-18
                          </span>
                     </span>
                     <div class="tags text-center">
@@ -160,7 +160,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            使用Electron做一个windows的应用市场
+            卷轴展开动画
         </span>
     </div>
 </header>
@@ -171,11 +171,12 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><ul>
-<li><p>各应用分别打包成asar文件，在主应用中加载各asar应用包</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = Path.join(__dirname, <span class="string">'..'</span>, <span class="string">`<span class="subst">$&#123;appId&#125;</span>.asar`</span>);</span><br><span class="line"><span class="keyword">const</span> pagePath = url.format(&#123;</span><br><span class="line">  protocol: <span class="string">'file'</span>,</span><br><span class="line">  slashes: <span class="literal">true</span>,</span><br><span class="line">  pathname: <span class="string">`<span class="subst">$&#123;path&#125;</span>/index.html`</span></span><br><span class="line">&#125;);</span><br><span class="line">  </span><br><span class="line">global.mainWindow.loadURL(pagePath);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
+                <h4 id="设计思路"><a href="#设计思路" class="headerlink" title="设计思路"></a>设计思路</h4><p>切图分成左右卷轴棍子，中间部分</p>
+<p>具体代码如下：(Vue做的移动端动画)</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"scroll_container"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"scroll_left"</span> <span class="attr">ref</span>=<span class="string">"left"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"scroll_right"</span> <span class="attr">ref</span>=<span class="string">"right"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"scroll_center"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"scroll_content"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"common"</span> <span class="attr">:class</span>=<span class="string">"&#123;'msg': userStatus == 11&#125;"</span>&gt;</span></span><br><span class="line">            尊敬的 <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"name"</span>&gt;</span>&#123;&#123;userInfo.wechat_nickname&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"btn_rewrite"</span> @<span class="attr">click</span>=<span class="string">"$router.push('/info');"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>样式代码如下：</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
                 <hr>
                 
@@ -183,14 +184,14 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2019/12/18/卷轴展开动画/" data-toggle="tooltip" data-placement="top"
-                           title="卷轴展开动画">&larr; Previous Post</a>
+                        <a href="/2019/12/18/如何做一个切牌洗牌的动画/" data-toggle="tooltip" data-placement="top"
+                           title="如何做一个切牌洗牌的动画">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2019/12/17/Selenium-UI自动化测试是如何工作的/" data-toggle="tooltip" data-placement="top"
-                           title="Selenium UI自动化测试是如何工作的">Next Post &rarr;</a>
+                        <a href="/2019/12/17/使用Electron做一个windows的应用市场/" data-toggle="tooltip" data-placement="top"
+                           title="使用Electron做一个windows的应用市场">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -209,7 +210,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#核心思想"><span class="toc-text">核心思想</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#设计思路"><span class="toc-text">设计思路</span></a></li></ol>
                 </div>
             </div>
         </div>
