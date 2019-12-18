@@ -173,7 +173,9 @@
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
                 <h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><ul>
 <li><p>各应用分别打包成asar文件，在主应用中加载各asar应用包</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = Path.join(__dirname, <span class="string">'..'</span>, <span class="string">`<span class="subst">$&#123;appId&#125;</span>.asar`</span>);</span><br><span class="line"><span class="keyword">const</span> pagePath = url.format(&#123;</span><br><span class="line">  protocol: <span class="string">'file'</span>,</span><br><span class="line">  slashes: <span class="literal">true</span>,</span><br><span class="line">  pathname: <span class="string">`<span class="subst">$&#123;path&#125;</span>/index.html`</span></span><br><span class="line">&#125;);</span><br><span class="line">  </span><br><span class="line">global.mainWindow.loadURL(pagePath);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure>
+
+
 </li>
 </ul>
 

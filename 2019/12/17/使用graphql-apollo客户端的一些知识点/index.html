@@ -176,7 +176,7 @@
 <h4 id="如何带上后端返回的Cookie"><a href="#如何带上后端返回的Cookie" class="headerlink" title="如何带上后端返回的Cookie"></a>如何带上后端返回的Cookie</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> apiLink = createUploadLink(&#123;</span><br><span class="line">  uri: process.env.VUE_APP_BASE_API,</span><br><span class="line">  credentials: <span class="string">'include'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <h4 id="如何不缓存接口"><a href="#如何不缓存接口" class="headerlink" title="如何不缓存接口"></a>如何不缓存接口</h4><p>fetchPolicy: ‘no-cache’</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">    <span class="keyword">await</span> <span class="keyword">this</span>.$apollo</span><br><span class="line">.query(&#123;</span><br><span class="line">  fetchPolicy: <span class="string">'no-cache'</span>,</span><br><span class="line">  query: gql.list,</span><br><span class="line">  variables: &#123;</span><br><span class="line">    site: <span class="string">'xx2'</span>,</span><br><span class="line">    fish: <span class="keyword">this</span>.fish,</span><br><span class="line">    language: <span class="string">'zh_cn'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  client: <span class="string">'api'</span> <span class="comment">// 如果请求不同的路径用client标识选的路径</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
                 <hr>
                 
